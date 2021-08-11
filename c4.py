@@ -26,26 +26,25 @@ preview()
 
 def define_winner():
   for row in board:
-      counter   = 0
+    
       i         = 0
       for element in row:
+        
         if element != slot:
           counter   = 0
-          for el in row[i:-1:]:
+          for el in row[i:len(row)]:
             if el == player_1:
               counter+=1
             elif el == player_2:
               counter-=1
           if counter >= 4 or counter <= -4:
-            print(counter)
-            return counter 
-          else:
-            counter   = 0         
+            
+            return counter          
           i+=1  
   chip_num   = 0
   
-  for row in range(7): 
-   counter_v  = 0
+  for row in range(len(board[0])): 
+
    i=-1
    for _ in range(len(board)): 
     for chip in board[i][chip_num]:
@@ -54,7 +53,7 @@ def define_winner():
        z=i
        counter_v  = 0
        
-       for _ in range(abs((len(board) - len(board)*2) + abs(z)) + 1):
+       for _ in range(len(board) - abs(z)):
         
         for piece in board[z][chip_num]: 
          
@@ -65,7 +64,7 @@ def define_winner():
         
          elif piece == player_2:
            counter_v-=1
-           print(counter_v)
+          
          z-=1  
       
         if counter_v >= 4 or counter_v <= -4:
@@ -76,20 +75,11 @@ def define_winner():
     
    chip_num+=1
 
-
-
-
-
-
 def ply(t,  choose,tur):
   global turn
   turn = t
-
-
   whose_turn  = "It is Player 1's turn" if turn==False else "It is Player 2's turn"
-  
-
-    
+   
   choice  = choose  
     
   if choice!=None:
@@ -118,8 +108,6 @@ def ply(t,  choose,tur):
   
   preview()
       
-
-
 slot_0   =  Button(window, text=f"slot - 0",command=lambda: ply(turn, 0,p_turn))
 slot_1   =  Button(window,text=f"slot 1",command=lambda: ply(turn,1,p_turn))
 slot_2   =  Button(window,text=f"slot 2",command=lambda: ply(turn,2,p_turn))
@@ -136,7 +124,6 @@ slot_4.grid(row=2,column=3)
 slot_5.grid(row=2,column=4)
 slot_6.grid(row=3,column=2)
 
-
 def end_game():
   slot_0.destroy()
   slot_1.destroy()
@@ -145,13 +132,5 @@ def end_game():
   slot_4.destroy()
   slot_5.destroy()
   slot_6.destroy()
-
-
-
-
-
-
-
-
 
 window.mainloop()

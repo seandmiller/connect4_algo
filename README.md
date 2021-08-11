@@ -5,3 +5,6 @@
 ## Version 1.0.2
 >Created the necessary computer algorithm to solve the connect four puzzle (almost finished), when it comes to figuring out who won the game
 >going to need to figure out how to detect the winner diagonally, which is the true test for sure.
+
+## Version 1.1.2 
+>Minor tweaks to algorithm, getting rid of unneccessary over engineered code.
