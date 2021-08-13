@@ -32,14 +32,18 @@ def define_winner():
         
         if element != slot:
           counter   = 0
+          the_element = element
           for el in row[i:len(row)]:
+            if el != the_element:
+              counter = 0
             if el == player_1:
               counter+=1
+            
             elif el == player_2:
               counter-=1
-          if counter >= 4 or counter <= -4:
+            if counter >= 4 or counter <= -4:
             
-            return counter          
+              return counter          
           i+=1  
   chip_num   = 0
   
@@ -51,6 +55,7 @@ def define_winner():
       
       if chip != slot:
        z=i
+       
        counter_v  = 0
        
        for _ in range(len(board) - abs(z)):

@@ -8,3 +8,6 @@
 
 ## Version 1.1.2 
 >Minor tweaks to algorithm, getting rid of unneccessary over engineered code.
+
+## Version 1.1.5
+> Bug in algorithm needed to be fixed (fixed)
