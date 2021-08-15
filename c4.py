@@ -79,6 +79,184 @@ def define_winner():
     
     
    chip_num+=1
+  chip_num   = 0
+  end_point  = 4
+  
+  i          = -3
+  thinking   = True
+  counter    = 0
+  while thinking == True:
+    
+    for _ in range(3):
+      thinking   = False
+      v          =  i
+      chip_num   = 0
+      tracker    = 0  
+      for _  in range(end_point):
+        the_chp = board[v][chip_num]
+        if the_chp != slot:
+          first_chip = the_chp
+          c  = chip_num
+          sub_v =  v
+          for _ in range(end_point - tracker):
+            
+            for el in board[sub_v][c]:
+              if el == player_1:
+                counter +=1
+              elif el == player_2:
+                counter-=1
+              elif el != first_chip:
+                counter  = 0
+              print(counter)
+              if counter == 4 or counter == -4:
+                return counter
+            sub_v-=1
+            c+=1          
+          counter   = 0  
+
+
+        v-=1
+        tracker+=1
+        chip_num+=1
+      
+      i+=1
+      
+      end_point+=1    
+  
+  chip_num   = 1
+  end_point  = 6
+  for _ in range(3):
+    c       = chip_num 
+    i       = -1
+    tracker = 0
+    
+    for _ in range(end_point):
+      the_chp  = board[i][c]
+      
+      if the_chp != slot:
+        sub_c =  c
+        sub_i =  i
+        first_chip  = the_chp
+        
+        for _ in range(end_point - tracker):
+          for el in board[sub_i][sub_c]:
+             
+             if el == player_1:
+               counter +=1
+             elif el == player_2:
+               counter  -=1
+             elif el != first_chip:
+               counter = 0
+             if counter == 4 or counter == -4:
+               return counter
+       
+          sub_i-=1
+          sub_c+=1
+        counter = 0
+        c+=1
+        tracker+=1
+        i-=1  
+    
+    chip_num+=1
+    end_point-=1
+  i = -3  
+  for _ in range(3):
+      
+      v          =  i
+      chip_num   = -1
+      tracker    = 0  
+      for _  in range(end_point):
+        the_chp = board[v][chip_num]
+        if the_chp != slot:
+          first_chip = the_chp
+          c  = chip_num
+          sub_v =  v
+          for _ in range(end_point - tracker):
+            
+            for el in board[sub_v][c]:
+              if el == player_1:
+                counter +=1
+              elif el == player_2:
+                counter-=1
+              elif el != first_chip:
+                counter  = 0
+              print(counter)
+              if counter == 4 or counter == -4:
+                return counter
+            sub_v-=1
+            c-=1          
+          counter   = 0  
+
+
+        v-=1
+        tracker+=1
+        chip_num-=1
+      
+      i+=1
+      
+      end_point+=1    
+  
+  chip_num   = -2
+  end_point  = 6
+  for _ in range(3):
+    c       = chip_num 
+    i       = -1
+    tracker = 0
+    
+    for _ in range(end_point):
+      the_chp  = board[i][c]
+      
+      if the_chp != slot:
+        sub_c =  c
+        sub_i =  i
+        first_chip  = the_chp
+        
+        for _ in range(end_point - tracker):
+          for el in board[sub_i][sub_c]:
+             
+             if el == player_1:
+               counter +=1
+             elif el == player_2:
+               counter  -=1
+             elif el != first_chip:
+               counter = 0
+             if counter == 4 or counter == -4:
+               return counter
+       
+          sub_i-=1
+          sub_c-=1
+        counter = 0
+        c-=1
+        tracker+=1
+        i-=1  
+    
+    chip_num-=1
+    end_point-=1
+
+
+  
+      
+
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
 
 def ply(t,  choose,tur):
   global turn
