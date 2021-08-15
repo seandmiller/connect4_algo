@@ -13,4 +13,4 @@
 > Bug in algorithm needed to be fixed (fixed)
 ## Version 2.1.5
 # Algorithm Complete
-> Diagonal win 'solved' must stress test for future bugs, this was fun project, however not so proud of my code, going to have to trim down in the future and make it more efficient 
+> Diagonal win 'solved' must stress test for future bugs, this was a fun project, however not so proud of my code, going to have to trim down in the future and make it more efficient 
