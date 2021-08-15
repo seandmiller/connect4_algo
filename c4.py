@@ -55,13 +55,10 @@ def define_winner():
       
       if chip != slot:
        z=i
-       
        counter_v  = 0
-       
        for _ in range(len(board) - abs(z)):
         
         for piece in board[z][chip_num]: 
-         
          
          if piece == player_1:
            counter_v+=1
@@ -76,8 +73,7 @@ def define_winner():
            print("vertical win" ,counter_v)
            return counter_v      
     i-=1
-    
-    
+      
    chip_num+=1
   chip_num   = 0
   end_point  = 4
@@ -107,13 +103,11 @@ def define_winner():
                 counter-=1
               elif el != first_chip:
                 counter  = 0
-              print(counter)
               if counter == 4 or counter == -4:
                 return counter
             sub_v-=1
             c+=1          
           counter   = 0  
-
 
         v-=1
         tracker+=1
@@ -180,13 +174,11 @@ def define_winner():
                 counter-=1
               elif el != first_chip:
                 counter  = 0
-              print(counter)
               if counter == 4 or counter == -4:
                 return counter
             sub_v-=1
             c-=1          
           counter   = 0  
-
 
         v-=1
         tracker+=1
@@ -232,29 +224,6 @@ def define_winner():
     
     chip_num-=1
     end_point-=1
-
-
-  
-      
-
-          
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
 
 
 
