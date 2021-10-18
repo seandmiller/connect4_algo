@@ -2,7 +2,6 @@ from tkinter import *
 import tkinter.font as font
 
 window    = Tk()
-
 slot      =  "O"
 player_1  =  "❅"
 player_2  =  "✪"
@@ -15,19 +14,21 @@ def preview():
   for row in board:
       cabinet   = Label(window,text=row)
       cabinet['font'] = font_c4
-      cabinet.config(text=row)
+      cabinet.config(text=row, bg='yellow')
       cabinet.grid(row=t,column=1, columnspan=50)
       t+=1
+  global layout
   layout = Label(window,text='0  1  2  3  4  5  6')
+  global line
   line   = Label(window, text='--------------------------')
   line['font']  = font.Font(size=35)
   line.grid(row=t+1,column=1, columnspan=20)
   layout['font']    =  font.Font(size=35)
   layout.grid(row=t + 2,column=1, columnspan=20)  
 
-p_turn         = Label(window,text="Player 1 Goes First!!!")
-p_turn['font'] = font.Font(size=13)
-p_turn.grid(row=0,column=0, columnspan=20)
+p_turn         = Label(window,text="Player 1 Goes First!!!", fg='red', bg='yellow')
+p_turn['font'] = font.Font(size=16)
+p_turn.grid(row=0,column=1, columnspan=20)
 preview()
 
 def define_winner():
@@ -35,6 +36,7 @@ def define_winner():
   for i, row in enumerate(board):
    
     for j, chip in enumerate(row):
+       
         if chip != slot and j + 4 <= len(row):
            if board[i][j:j +4] == [chip for i in range(4)]:
              return chip
@@ -82,14 +84,15 @@ def ply(t,  choose,tur):
       i-=1  
 
   whose_turn  = "It is Player 1's turn" if turn==False else "It is Player 2's turn"
+  color       = 'red' if turn == False else 'blue'
   global p_turn
-  p_turn.config(text=whose_turn)
+  p_turn.config(text=whose_turn, fg=color)
   if define_winner() == player_1:
-    p_turn.config(text="Player 1 has won the game")
+    p_turn.config(text="Player 1 has won the game", fg='red')
     end_game()
   elif define_winner() == player_2:
     end_game()
-    p_turn.config(text='Player 2 has won the game')  
+    p_turn.config(text='Player 2 has won the game', fg='blue')  
   
   preview()
       
@@ -117,5 +120,7 @@ def end_game():
   slot_4.destroy()
   slot_5.destroy()
   slot_6.destroy()
+  line.destroy()
+  layout.destroy()
 
 window.mainloop()
