@@ -8,7 +8,7 @@ player_1  =  "❅"
 player_2  =  "✪"
 board     =  [[slot for _ in range(7)] for _ in range(6)]
 turn      =  False
-font_c4   = font.Font(size=25)
+font_c4   = font.Font(size=45)
 
 def preview():
   t=1
@@ -16,216 +16,50 @@ def preview():
       cabinet   = Label(window,text=row)
       cabinet['font'] = font_c4
       cabinet.config(text=row)
-      cabinet.grid(row=t,column=1)
+      cabinet.grid(row=t,column=1, columnspan=50)
       t+=1
+  layout = Label(window,text='0  1  2  3  4  5  6')
+  line   = Label(window, text='--------------------------')
+  line['font']  = font.Font(size=35)
+  line.grid(row=t+1,column=1, columnspan=20)
+  layout['font']    =  font.Font(size=35)
+  layout.grid(row=t + 2,column=1, columnspan=20)  
 
 p_turn         = Label(window,text="Player 1 Goes First!!!")
 p_turn['font'] = font.Font(size=13)
-p_turn.grid(row=0,column=1)
+p_turn.grid(row=0,column=0, columnspan=20)
 preview()
 
 def define_winner():
-  for row in board:
-    
-      i         = 0
-      for element in row:
-        
-        if element != slot:
-          counter   = 0
-          the_element = element
-          for el in row[i:len(row)]:
-            if el != the_element:
-              counter = 0
-            if el == player_1:
-              counter+=1
+ 
+  for i, row in enumerate(board):
+   
+    for j, chip in enumerate(row):
+        if chip != slot and j + 4 <= len(row):
+           if board[i][j:j +4] == [chip for i in range(4)]:
+             return chip
+        if i + 4 <= len(board) and chip != slot:
+           if board[i + 3][j] == chip and board[i + 2][j] == chip:
+              if board[i+ 1][j] == chip:
+                 return chip
+        if i + 4 <= len(board) and j + 4 <= len(row) and chip != slot:
+           if board[i+ 3][j+3] == chip and board[i +2][j + 2] == chip:
+              if board[i + 1][j + 1]  == chip:
+                return chip
+        if (i + 4) <= len(board) and (j - 3) >= 0 and chip != slot:
+           if board[i + 3][j - 3] == chip and board[i + 2][j- 2] == chip:
+              if board[i + 1][j - 1] == chip:
+                return chip       
+
+                 
+
+                      
+              
             
-            elif el == player_2:
-              counter-=1
-            if counter >= 4 or counter <= -4:
-            
-              return counter          
-          i+=1  
-  chip_num   = 0
-  
-  for row in range(len(board[0])): 
-
-   i=-1
-   for _ in range(len(board)): 
-    for chip in board[i][chip_num]:
-      
-      if chip != slot:
-       z=i
-       counter_v  = 0
-       for _ in range(len(board) - abs(z)):
         
-        for piece in board[z][chip_num]: 
-         
-         if piece == player_1:
-           counter_v+=1
-           
-        
-         elif piece == player_2:
-           counter_v-=1
-          
-         z-=1  
-      
-        if counter_v >= 4 or counter_v <= -4:
-           print("vertical win" ,counter_v)
-           return counter_v      
-    i-=1
-      
-   chip_num+=1
-  chip_num   = 0
-  end_point  = 4
-  
-  i          = -3
-  thinking   = True
-  counter    = 0
-  while thinking == True:
-    
-    for _ in range(3):
-      thinking   = False
-      v          =  i
-      chip_num   = 0
-      tracker    = 0  
-      for _  in range(end_point):
-        the_chp = board[v][chip_num]
-        if the_chp != slot:
-          first_chip = the_chp
-          c  = chip_num
-          sub_v =  v
-          for _ in range(end_point - tracker):
-            
-            for el in board[sub_v][c]:
-              if el == player_1:
-                counter +=1
-              elif el == player_2:
-                counter-=1
-              elif el != first_chip:
-                counter  = 0
-              if counter == 4 or counter == -4:
-                return counter
-            sub_v-=1
-            c+=1          
-          counter   = 0  
 
-        v-=1
-        tracker+=1
-        chip_num+=1
       
-      i+=1
       
-      end_point+=1    
-  
-  chip_num   = 1
-  end_point  = 6
-  for _ in range(3):
-    c       = chip_num 
-    i       = -1
-    tracker = 0
-    
-    for _ in range(end_point):
-      the_chp  = board[i][c]
-      
-      if the_chp != slot:
-        sub_c =  c
-        sub_i =  i
-        first_chip  = the_chp
-        
-        for _ in range(end_point - tracker):
-          for el in board[sub_i][sub_c]:
-             
-             if el == player_1:
-               counter +=1
-             elif el == player_2:
-               counter  -=1
-             elif el != first_chip:
-               counter = 0
-             if counter == 4 or counter == -4:
-               return counter
-       
-          sub_i-=1
-          sub_c+=1
-        counter = 0
-        c+=1
-        tracker+=1
-        i-=1  
-    
-    chip_num+=1
-    end_point-=1
-  i = -3  
-  for _ in range(3):
-      
-      v          =  i
-      chip_num   = -1
-      tracker    = 0  
-      for _  in range(end_point):
-        the_chp = board[v][chip_num]
-        if the_chp != slot:
-          first_chip = the_chp
-          c  = chip_num
-          sub_v =  v
-          for _ in range(end_point - tracker):
-            
-            for el in board[sub_v][c]:
-              if el == player_1:
-                counter +=1
-              elif el == player_2:
-                counter-=1
-              elif el != first_chip:
-                counter  = 0
-              if counter == 4 or counter == -4:
-                return counter
-            sub_v-=1
-            c-=1          
-          counter   = 0  
-
-        v-=1
-        tracker+=1
-        chip_num-=1
-      
-      i+=1
-      
-      end_point+=1    
-  
-  chip_num   = -2
-  end_point  = 6
-  for _ in range(3):
-    c       = chip_num 
-    i       = -1
-    tracker = 0
-    
-    for _ in range(end_point):
-      the_chp  = board[i][c]
-      
-      if the_chp != slot:
-        sub_c =  c
-        sub_i =  i
-        first_chip  = the_chp
-        
-        for _ in range(end_point - tracker):
-          for el in board[sub_i][sub_c]:
-             
-             if el == player_1:
-               counter +=1
-             elif el == player_2:
-               counter  -=1
-             elif el != first_chip:
-               counter = 0
-             if counter == 4 or counter == -4:
-               return counter
-       
-          sub_i-=1
-          sub_c-=1
-        counter = 0
-        c-=1
-        tracker+=1
-        i-=1  
-    
-    chip_num-=1
-    end_point-=1
-
-
 
 def ply(t,  choose,tur):
   global turn
@@ -233,28 +67,27 @@ def ply(t,  choose,tur):
   whose_turn  = "It is Player 1's turn" if turn==False else "It is Player 2's turn"
    
   choice  = choose  
-    
-  if choice!=None:
-      game=True
-      i=-1
-      while game:
-          try:
-            if board[i][choice]==slot:
-                board[i][choice]= player_1 if turn==False else player_2
-                game=False
-                turn = not turn 
- 
-            i-=1
-          except:
-              i=-1
-              game=False
+  game=True
+  i=-1
+  while game:
+      
+      if board[i][choice]==slot:
+        board[i][choice]= player_1 if turn==False else player_2
+        game = False
+        turn = not turn 
+      elif i < -5:
+        print('slot out')
+        game = False
+          
+      i-=1  
+
   whose_turn  = "It is Player 1's turn" if turn==False else "It is Player 2's turn"
   global p_turn
   p_turn.config(text=whose_turn)
-  if define_winner() == 4:
+  if define_winner() == player_1:
     p_turn.config(text="Player 1 has won the game")
     end_game()
-  elif define_winner() == -4:
+  elif define_winner() == player_2:
     end_game()
     p_turn.config(text='Player 2 has won the game')  
   
@@ -268,13 +101,13 @@ slot_4   =  Button(window,text=f"slot 4",command=lambda: ply(turn,4,p_turn))
 slot_5   =  Button(window,text=f"slot 5",command=lambda: ply(turn,5,p_turn))
 slot_6   =  Button(window,text=f"slot 6",command=lambda: ply(turn,6,p_turn))
 
-slot_0.grid(row=1,column=2)
-slot_1.grid(row=1,column=3)
-slot_2.grid(row=1,column=4)
-slot_3.grid(row=2,column=2)
-slot_4.grid(row=2,column=3)
-slot_5.grid(row=2,column=4)
-slot_6.grid(row=3,column=2)
+slot_0.grid(row=7,column=2)
+slot_1.grid(row=7,column=3 )
+slot_2.grid(row=7,column=4)
+slot_3.grid(row=7,column=5)
+slot_4.grid(row=7,column=6 )
+slot_5.grid(row=7,column=7)
+slot_6.grid(row=7,column=8)
 
 def end_game():
   slot_0.destroy()
